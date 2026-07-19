@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>EZ LOTTO</title>
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff7e45">
+<style>
+:root{
+  --bg:#141216; --panel:#1c1920; --panel2:#242028; --line:#312b38;
+  --txt:#f5f2f0; --dim:#a29aa8;
+  --sun1:#ffc24b; --sun2:#ff7e45; --sun3:#ff4f6e; --sun4:#b45ce8;
+  --grad:linear-gradient(135deg,var(--sun1),var(--sun2) 38%,var(--sun3) 68%,var(--sun4));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+header{display:flex;align-items:center;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+.logo{width:38px;height:38px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(255,110,80,.35);flex:none}
+.logo span{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:1.5rem;color:#fff;transform:translateY(-2px)}
+h1{font-size:1.15rem;letter-spacing:.5px}
+h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cloudstat{margin-left:auto;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:.78rem;cursor:pointer}
+.cloudstat.off{color:var(--dim)}
+.cloudstat.sync{color:var(--sun1);border-color:#7a5230}
+.cloudstat.ok{color:#7fdc8e;border-color:#2f5c38}
+main{display:flex;flex-direction:column;gap:16px;padding:16px 14px 40px;max-width:640px;margin:0 auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 15px}
+.card h2{font-size:.76rem;text-transform:uppercase;letter-spacing:1.3px;color:var(--dim);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.card h2 .em{font-size:.95rem}
+
+/* entry */
+.formrow{display:flex;gap:9px;flex-wrap:wrap;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:130px}
+.field label{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--dim)}
+.field input{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:12px 12px;font-size:1rem;outline:none;width:100%}
+.field input:focus{border-color:var(--sun2)}
+#num{font-variant-numeric:tabular-nums;letter-spacing:2px}
+.addbtn{background:var(--grad);border:none;color:#fff;font-weight:700;border-radius:9px;padding:13px 22px;font-size:.95rem;cursor:pointer;box-shadow:0 3px 14px rgba(255,90,90,.3)}
+.preview{margin-top:11px;font-size:.9rem;color:var(--dim);min-height:1.4em}
+.preview b{color:var(--txt)} .preview .pem{font-size:1.15rem}
+.msg{margin-top:7px;font-size:.85rem;min-height:1.2em}
+.msg.ok{color:#7fdc8e}.msg.err{color:#ff7b7b}
+
+/* predictions / pattern */
+.pred{display:flex;flex-direction:column;gap:8px}
+.prow{display:flex;align-items:center;gap:11px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;position:relative;overflow:hidden}
+.prow .rank{font-size:.78rem;color:var(--dim);width:20px;font-weight:700}
+.prow .pnum{font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:2px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;min-width:52px}
+.prow.three .pnum{min-width:74px}
+.prow .pem{font-size:1.7rem;line-height:1}
+.prow .pmeta{flex:1;min-width:0}
+.prow .aname{font-weight:600;font-size:.92rem}
+.prow .aname small{color:var(--dim);font-weight:400;margin-left:6px}
+.prow .why{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap}
+.tag{font-size:.65rem;padding:2px 8px;border-radius:20px;border:1px solid var(--line);color:var(--dim)}
+.tag.hot{color:#ffb35c;border-color:#7a5230}
+.tag.due{color:#8ec9ff;border-color:#31567a}
+.tag.freq{color:#c79bff;border-color:#5b3f7a}
+.scorebar{position:absolute;left:0;bottom:0;height:3px;background:var(--grad);opacity:.85}
+.bignote{color:var(--dim);font-size:.72rem;margin-top:11px}
+.patrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.patlbl{color:var(--dim);font-size:.83rem}
+#patSel{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:9px 11px;font-size:.92rem;flex:1;min-width:150px}
+
+/* rankings */
+.ranktabs{display:flex;gap:7px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+.rtab{background:var(--panel2);border:1px solid var(--line);color:var(--dim);border-radius:20px;padding:7px 15px;font-size:.8rem;cursor:pointer}
+.rtab.on{background:var(--grad);color:#fff;border-color:transparent;font-weight:700}
+#monthSel{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:7px 10px;font-size:.85rem;display:none}
+.rankcols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:460px){.rankcols{grid-template-columns:1fr}}
+.rankcol h3{font-size:.7rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.rrow{display:flex;align-items:center;gap:8px;padding:6px 3px;border-top:1px solid #262130;font-size:.88rem}
+.rrow:first-of-type{border-top:none}
+.rrow .rk{color:var(--dim);font-size:.72rem;width:15px}
+.rrow .rnum{font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:1.5px;min-width:36px}
+.rrow.three .rnum{min-width:48px}
+.rrow .rem{font-size:1.15rem}
+.rrow .ran{color:var(--dim);font-size:.76rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rrow .cnt{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:1px 8px;font-size:.75rem;font-weight:700;color:var(--sun1)}
+.empty{color:var(--dim);font-size:.85rem;padding:8px 4px}
+
+/* history */
+.tablewrap{max-height:430px;overflow:auto;border:1px solid var(--line);border-radius:11px}
+table{width:100%;border-collapse:collapse;font-size:.84rem}
+thead th{position:sticky;top:0;background:var(--panel2);color:var(--dim);font-size:.66rem;text-transform:uppercase;letter-spacing:1px;padding:8px 8px;text-align:left;z-index:1}
+tbody td{padding:8px 8px;border-top:1px solid #262130;white-space:nowrap}
+td.num{font-variant-numeric:tabular-nums;letter-spacing:1px;font-weight:600}
+td .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-weight:700;font-variant-numeric:tabular-nums}
+td .chip.l2{color:var(--sun1)} td .chip.l3{color:var(--sun3)}
+td.animal .aem{font-size:1rem;margin-right:4px}
+td.animal small{display:none}
+.delbtn{background:none;border:none;color:#5e5566;cursor:pointer;font-size:1rem;padding:4px 8px}
+.tstats{margin-top:9px;color:var(--dim);font-size:.78rem}
+
+/* actions + modal */
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.hbtn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:11px 15px;font-size:.85rem;cursor:pointer;flex:1;min-width:130px}
+dialog{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:16px;padding:0;max-width:560px;width:94vw;max-height:84vh}
+dialog::backdrop{background:rgba(10,8,12,.7)}
+.mhead{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+.mhead h2{font-size:.95rem}
+.mhead button{margin-left:auto;flex:none;min-width:0}
+.mbody{padding:13px 16px;overflow:auto;max-height:calc(84vh - 125px)}
+.agrid{display:flex;flex-direction:column;gap:7px}
+.arow{display:flex;align-items:center;gap:7px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:7px 9px;flex-wrap:wrap}
+.arow input{background:var(--bg);border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:6px 7px;font-size:.86rem;min-width:0}
+.arow .i-em{width:48px;text-align:center;font-size:1rem}
+.arow .i-en{width:110px;font-weight:600}
+.arow .i-th{width:100px}
+.arow .nums{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.arow .nums span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--sun1);font-size:.82rem}
+.mfoot{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:9px;justify-content:flex-end;position:sticky;bottom:0;background:var(--panel)}
+footer{text-align:center;color:#6d6377;font-size:.72rem;padding:0 18px 30px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><span>L</span></div>
+  <h1>EZ <b>LOTTO</b></h1>
+  <button class="cloudstat off" id="cloudStat" title="Cloud sync — tap to retry">☁ local</button>
+</header>
+
+<main>
+  <div class="card">
+    <h2><span class="em">✍️</span> Add today's result</h2>
+    <div class="formrow">
+      <div class="field"><label>Draw date</label><input type="date" id="date"></div>
+      <div class="field"><label>Winning number</label><input id="num" placeholder="e.g. 364604" maxlength="7" inputmode="numeric" autocomplete="off"></div>
+      <button class="addbtn" id="addBtn">Save</button>
+    </div>
+    <div class="preview" id="preview">Type the number — animal fills in automatically.</div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="em">🔮</span> Top 5 likely next — 2 digits</h2>
+    <div class="pred" id="pred2"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="em">🔮</span> Top 5 likely next — 3 digits</h2>
+    <div class="pred" id="pred3"></div>
+    <div class="bignote">Smart blend of 🔥 hot streaks, ⏰ overdue gaps and 📈 frequency. For fun only — every draw is random! 🍀</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="em">🐾</span> Pattern prediction by animal</h2>
+    <div class="patrow">
+      <span class="patlbl">After</span>
+      <select id="patSel"></select>
+    </div>
+    <div class="pred" id="patPred"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="em">🏆</span> Hall of fame — most drawn</h2>
+    <div class="ranktabs">
+      <button class="rtab on" data-mode="all">All time</button>
+      <button class="rtab" data-mode="month">By month</button>
+      <select id="monthSel"></select>
+    </div>
+    <div class="rankcols">
+      <div class="rankcol"><h3>2-digit</h3><div id="rank2"></div></div>
+      <div class="rankcol"><h3>3-digit</h3><div id="rank3"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="em">📜</span> Draw history</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Date</th><th>Number</th><th>L2</th><th>L3</th><th>Animal</th><th></th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="tstats" id="tstats"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="em">🧰</span> Tools</h2>
+    <div class="actions">
+      <button class="hbtn" id="chartBtn">🐾 Animal Chart</button>
+      <button class="hbtn" id="importBtn">⬆ Import CSV</button>
+      <button class="hbtn" id="exportBtn">⬇ Export CSV</button>
+      <input type="file" id="importFile" accept=".csv,text/csv" style="display:none">
+    </div>
+  </div>
+</main>
+
+<footer>EZ LOTTO · synced with your PC via cloud · for entertainment — past results never change the odds 🍀</footer>
+
+<dialog id="chartDlg">
+  <div class="mhead"><h2>🐾 Animal chart (00–99)</h2><button class="hbtn" id="chartClose">✕</button></div>
+  <div class="mbody"><div class="agrid" id="agrid"></div></div>
+  <div class="mfoot"><button class="hbtn" id="chartCancel">Cancel</button><button class="addbtn" id="chartSave">Save chart</button></div>
+</dialog>
+
+<script>
+/* ---------- local store (localStorage; cloud is the mirror) ---------- */
+const CHART40 = [
+ ["Small Fish","ปลาเล็ก","🐟"],["Snail","หอย","🐌"],["Goose","ห่าน","🪿"],["Peacock","นกยูง","🦚"],
+ ["Lion","ราชสีห์","🦁"],["Tiger","เสือ","🐯"],["Pig","หมู","🐷"],["Rabbit","กระต่าย","🐰"],
+ ["Buffalo","ควาย","🐃"],["Otter","นาก","🦦"],["Dog","หมา","🐶"],["Horse","ม้า","🐴"],
+ ["Elephant","ช้าง","🐘"],["Cat","แมวบ้าน","🐱"],["Rat","หนู","🐀"],["Bee","ผึ้ง","🐝"],
+ ["Seagull","นกนางนวล","🐦"],["Wild Cat","แมวป่า","🐈‍⬛"],["Butterfly","ผีเสื้อ","🦋"],["Centipede","กิ้งกือ","🐛"],
+ ["Swallow","นกนางแอ่น","🐤"],["Pigeon","นกพิราบ","🕊️"],["Monkey","ลิง","🐵"],["Frog","กบ","🐸"],
+ ["Hawk","เหยี่ยว","🐦‍⬛"],["Dragon","มังกร","🐉"],["Turtle","เต่า","🐢"],["Chicken","ไก่","🐔"],
+ ["Eel","ปลาไหล","🪱"],["Big Fish","ปลาใหญ่","🐳"],["Shrimp","กุ้ง","🦐"],["Snake","งู","🐍"],
+ ["Spider","แมงมุม","🕷️"],["Deer","กวาง","🦌"],["Goat","แพะ","🐐"],["Civet","ชะมด","🦝"],
+ ["Pangolin","ตัวนิ่ม","🦎"],["Porcupine","เม่น","🦔"],["Crab","ปู","🦀"],["Eagle","นกอินทรี","🦅"],
+];
+function seedAnimals(){
+  const m = {};
+  for (let n = 0; n < 100; n++){
+    const idx = n === 0 ? 20 : ((n - 1) % 40) + 1; // 00 is Centipede in Kev's chart
+    const [en, th, emoji] = CHART40[idx - 1];
+    m[String(n).padStart(2,'0')] = { en, th, emoji };
+  }
+  return m;
+}
+const LS = { d:'ezlotto.draws', a:'ezlotto.animals', s:'ezlotto.synced' };
+let draws = [], animals = seedAnimals();
+try { draws = JSON.parse(localStorage.getItem(LS.d)) || []; } catch(e) {}
+try { const a = JSON.parse(localStorage.getItem(LS.a)); if (a && a['00']) animals = a; } catch(e) {}
+function saveDraws(){ draws.sort((a,b)=>a.date.localeCompare(b.date)); localStorage.setItem(LS.d, JSON.stringify(draws)); }
+function saveAnimals(){ localStorage.setItem(LS.a, JSON.stringify(animals)); }
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const l2 = n => n.slice(-2);
+const l3 = n => n.slice(-3);
+const ani = k => animals[k] || { en:'?', th:'', emoji:'🐾' };
+
+/* ---------- entry ---------- */
+$('date').value = new Date().toISOString().slice(0,10);
+$('num').addEventListener('input', () => {
+  const v = $('num').value.replace(/\D/g,''); $('num').value = v;
+  if (v.length >= 3){
+    const a = ani(l2(v));
+    $('preview').innerHTML = `Last-2 <b>${l2(v)}</b> · Last-3 <b>${l3(v)}</b> · <span class="pem">${a.emoji}</span> <b>${esc(a.en)}</b> <small>${esc(a.th)}</small>`;
+  } else $('preview').textContent = 'Type the number — animal fills in automatically.';
+});
+$('num').addEventListener('keydown', e => { if (e.key === 'Enter') $('addBtn').click(); });
+$('addBtn').onclick = () => {
+  const date = $('date').value, number = $('num').value;
+  const m = $('msg');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{3,7}$/.test(number)){ m.className='msg err'; m.textContent='Need a date and a number (at least 3 digits).'; return; }
+  const dup = draws.find(d => d.date === date);
+  if (dup && !confirm(`${date} already has ${dup.number}. Replace it?`)) return;
+  if (dup) dup.number = number; else draws.push({ date, number });
+  saveDraws(); cloudSet(date, number);
+  m.className='msg ok'; m.textContent = (dup?'Updated':'Saved') + ` ${date} → ${number} ${ani(l2(number)).emoji}`;
+  $('num').value=''; $('preview').textContent='Type the number — animal fills in automatically.';
+  renderAll();
+};
+function delDraw(date){
+  if (!confirm(`Delete the ${date} draw?`)) return;
+  draws = draws.filter(d => d.date !== date);
+  saveDraws(); cloudDel(date); renderAll();
+}
+
+/* ---------- history ---------- */
+function renderTable(){
+  const rows = [...draws].reverse().map(d => {
+    const a = ani(l2(d.number));
+    return `<tr><td>${d.date}</td><td class="num">${d.number}</td>
+      <td><span class="chip l2">${l2(d.number)}</span></td>
+      <td><span class="chip l3">${l3(d.number)}</span></td>
+      <td class="animal"><span class="aem">${a.emoji}</span>${esc(a.en)}</td>
+      <td><button class="delbtn" onclick="delDraw('${d.date}')" title="Delete">✕</button></td></tr>`;
+  }).join('');
+  $('tbody').innerHTML = rows || '<tr><td colspan="6" class="empty">No draws yet — they arrive from the cloud on first sync, or add one above.</td></tr>';
+  $('tstats').textContent = draws.length ? `${draws.length} draws · ${draws[0].date} → ${draws[draws.length-1].date}` : '';
+}
+
+/* ---------- predictions ---------- */
+function stats(keyFn, universe){
+  const N = draws.length;
+  const cnt = {}, last = {};
+  draws.forEach((d,i) => { const k = keyFn(d.number); cnt[k]=(cnt[k]||0)+1; last[k]=i; });
+  return { N, cnt, last, universe };
+}
+function blend(st, recentWin){
+  const { N, cnt, last } = st;
+  const recent = {};
+  draws.slice(-recentWin).forEach(d => { const k = st.keyFn(d.number); recent[k]=(recent[k]||0)+1; });
+  const maxAll = Math.max(1,...Object.values(cnt));
+  const maxRec = Math.max(1,...Object.values(recent));
+  const top10 = Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,10).map(e=>e[0]);
+  return st.universe.map(k => {
+    const c = cnt[k]||0, rc = recent[k]||0;
+    const gap = (k in last) ? (N-1 - last[k]) : N;
+    const avgGap = N / Math.max(c,1);
+    const over = Math.min(gap/avgGap, 2)/2;
+    const score = .45*(rc/maxRec) + .30*over + .25*(c/maxAll);
+    const why = [];
+    if (rc >= 2) why.push(['hot','🔥 Hot']);
+    if (gap/avgGap >= 1.4 && c > 0) why.push(['due','⏰ Overdue']);
+    if (top10.includes(k) && c >= 2) why.push(['freq','📈 Frequent']);
+    return { k, c, rc, gap, score, why };
+  }).sort((a,b) => b.score - a.score || b.c - a.c);
+}
+function renderPred(el, items, three){
+  const maxS = Math.max(...items.map(i=>i.score), .0001);
+  el.innerHTML = items.slice(0,5).map((it,i) => {
+    const a = ani(l2(it.k));
+    const tags = it.why.map(w=>`<span class="tag ${w[0]}">${w[1]}</span>`).join('') || '<span class="tag">🎲 Wildcard</span>';
+    return `<div class="prow${three?' three':''}">
+      <span class="rank">#${i+1}</span>
+      <span class="pnum">${it.k}</span>
+      <span class="pem">${a.emoji}</span>
+      <div class="pmeta">
+        <div class="aname">${esc(a.en)}<small>${esc(a.th)}</small></div>
+        <div class="why">${tags}<span class="tag">seen ${it.c}× · last ${it.gap} ago</span></div>
+      </div>
+      <div class="scorebar" style="width:${Math.round(it.score/maxS*100)}%"></div>
+    </div>`;
+  }).join('') || '<div class="empty">Waiting for draws…</div>';
+}
+function renderPreds(){
+  if (!draws.length){ renderPred($('pred2'),[],false); renderPred($('pred3'),[],true); return; }
+  const u2 = Array.from({length:100},(_,i)=>String(i).padStart(2,'0'));
+  const s2 = stats(l2, u2); s2.keyFn = l2;
+  renderPred($('pred2'), blend(s2, 24), false);
+  const seen3 = [...new Set(draws.map(d=>l3(d.number)))];
+  const s3 = stats(l3, seen3); s3.keyFn = l3;
+  renderPred($('pred3'), blend(s3, 40), true);
+}
+
+/* ---------- pattern by animal ---------- */
+function animalGroups(){
+  const g = new Map();
+  for (let i = 0; i < 100; i++){
+    const k = String(i).padStart(2,'0');
+    const a = ani(k);
+    if (!g.has(a.en)) g.set(a.en, { ...a, nums: [] });
+    g.get(a.en).nums.push(k);
+  }
+  return [...g.values()].sort((x,y) => x.nums[0].localeCompare(y.nums[0]));
+}
+const animalOf = d => ani(l2(d.number));
+$('patSel').onchange = renderPattern;
+function renderPattern(){
+  const sel = $('patSel');
+  const groups = animalGroups();
+  const keep = sel.value;
+  sel.innerHTML = groups.map(g=>`<option value="${esc(g.en)}">${g.emoji} ${esc(g.en)} · ${esc(g.th)}</option>`).join('');
+  if (keep && groups.some(g=>g.en===keep)) sel.value = keep;
+  else if (draws.length) sel.value = animalOf(draws[draws.length-1]).en;
+  const target = sel.value;
+  const followers = {};
+  let times = 0;
+  for (let i = 0; i < draws.length - 1; i++){
+    if (animalOf(draws[i]).en === target){
+      times++;
+      const nx = animalOf(draws[i+1]).en;
+      followers[nx] = (followers[nx]||0) + 1;
+    }
+  }
+  const rows = Object.entries(followers).sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,5);
+  const byEn = Object.fromEntries(groups.map(g=>[g.en,g]));
+  const t = byEn[target];
+  $('patPred').innerHTML = rows.map(([en,c],i) => {
+    const g = byEn[en] || {emoji:'🐾', en, th:'', nums:[]};
+    const pct = Math.round(c/times*100);
+    return `<div class="prow">
+      <span class="rank">#${i+1}</span>
+      <span class="pem">${g.emoji}</span>
+      <div class="pmeta">
+        <div class="aname">${esc(g.en)}<small>${esc(g.th)}</small></div>
+        <div class="why"><span class="tag freq">followed ${c} of ${times} · ${pct}%</span><span class="tag">numbers: ${g.nums.join(' ')}</span></div>
+      </div>
+      <div class="scorebar" style="width:${pct}%"></div>
+    </div>`;
+  }).join('') || `<div class="empty">${t ? t.emoji+' '+esc(target)+' has no next-draw history yet.' : 'Waiting for draws…'}</div>`;
+}
+
+/* ---------- rankings ---------- */
+let rankMode = 'all';
+document.querySelectorAll('.rtab').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); rankMode = b.dataset.mode;
+  $('monthSel').style.display = rankMode==='month' ? 'inline-block' : 'none';
+  renderRanks();
+});
+$('monthSel').onchange = renderRanks;
+function renderRanks(){
+  const ms = [...new Set(draws.map(d=>d.date.slice(0,7)))].sort().reverse();
+  const sel = $('monthSel');
+  const keep = sel.value;
+  sel.innerHTML = ms.map(m=>`<option>${m}</option>`).join('');
+  if (ms.includes(keep)) sel.value = keep;
+  const pool = rankMode==='all' ? draws : draws.filter(d=>d.date.startsWith(sel.value));
+  const top = (keyFn, el, three) => {
+    const cnt = {};
+    pool.forEach(d => { const k=keyFn(d.number); cnt[k]=(cnt[k]||0)+1; });
+    const rows = Object.entries(cnt).sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,5);
+    el.innerHTML = rows.map(([k,c],i) => {
+      const a = ani(l2(k));
+      return `<div class="rrow${three?' three':''}"><span class="rk">${i+1}</span><span class="rnum">${k}</span>
+        <span class="rem">${a.emoji}</span><span class="ran">${esc(a.en)}</span><span class="cnt">${c}×</span></div>`;
+    }).join('') || '<div class="empty">No draws in this period.</div>';
+  };
+  top(l2, $('rank2'), false);
+  top(l3, $('rank3'), true);
+}
+
+/* ---------- animal chart modal ---------- */
+$('chartBtn').onclick = () => {
+  $('agrid').innerHTML = animalGroups().map(gr => {
+    const keys = gr.nums.join(',');
+    return `<div class="arow" data-keys="${keys}">
+      <input class="i-em" data-f="emoji" value="${esc(gr.emoji)}">
+      <input class="i-en" data-f="en" value="${esc(gr.en)}">
+      <input class="i-th" data-f="th" value="${esc(gr.th)}">
+      <div class="nums">${gr.nums.map(n=>`<span>${n}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+  $('chartDlg').showModal();
+};
+$('chartClose').onclick = $('chartCancel').onclick = () => $('chartDlg').close();
+$('chartSave').onclick = () => {
+  document.querySelectorAll('#agrid .arow').forEach(row => {
+    const v = {
+      emoji: row.querySelector('.i-em').value || '🐾',
+      en: row.querySelector('.i-en').value || '?',
+      th: row.querySelector('.i-th').value || '',
+    };
+    row.dataset.keys.split(',').forEach(k => { animals[k] = v; });
+  });
+  saveAnimals(); cloudSetAnimals();
+  $('chartDlg').close(); renderAll();
+};
+
+/* ---------- import / export ---------- */
+function parseCSV(text){
+  const out = [], bad = [];
+  const clean = s => s.trim().replace(/^="?|^"|"$/g, '').replace(/"$/,'').trim();
+  for (const line of text.replace(/^﻿/, '').split(/\r?\n/)){
+    if (!line.trim()) continue;
+    const cells = line.split(',').map(clean);
+    let [date, number] = cells;
+    if (/^date$/i.test(date || '')) continue;
+    const dm = (date || '').match(/^(\d{1,2})[\/.](\d{1,2})[\/.](\d{4})$/);
+    if (dm) date = `${dm[3]}-${dm[2].padStart(2,'0')}-${dm[1].padStart(2,'0')}`;
+    number = (number || '').replace(/\D/g,'');
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date || '') && /^\d{3,7}$/.test(number)) out.push({ date, number });
+    else bad.push(line);
+  }
+  return { rows: out, bad };
+}
+$('importBtn').onclick = () => $('importFile').click();
+$('importFile').onchange = async (e) => {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (!f) return;
+  const m = $('msg');
+  const { rows, bad } = parseCSV(await f.text());
+  if (!rows.length){ m.className='msg err'; m.textContent='No usable rows found in that CSV.'; return; }
+  if (!confirm(`Import ${rows.length} draws? New dates are added, existing dates get updated.`)) return;
+  let added = 0, updated = 0;
+  const byDate = new Map(draws.map(d=>[d.date,d]));
+  for (const { date, number } of rows){
+    const ex = byDate.get(date);
+    if (ex){ if (ex.number !== number){ ex.number = number; updated++; } }
+    else { const d = { date, number }; byDate.set(date, d); draws.push(d); added++; }
+  }
+  saveDraws(); cloudSetMany(rows);
+  m.className='msg ok'; m.textContent = `Imported ✔ ${added} added · ${updated} updated · ${bad.length} skipped.`;
+  renderAll();
+};
+$('exportBtn').onclick = () => {
+  const head = 'Date,Winning Number,Last-2,Last-3,Animal (EN),Animal (TH)\n';
+  const body = draws.map(d => {
+    const a = ani(l2(d.number));
+    return `${d.date},="${d.number}",="${l2(d.number)}",="${l3(d.number)}",${a.en},${a.th}`;
+  }).join('\n');
+  const blob = new Blob(['﻿'+head+body], {type:'text/csv;charset=utf-8'});
+  const aEl = document.createElement('a');
+  aEl.href = URL.createObjectURL(blob); aEl.download = 'lotto-history.csv'; aEl.click();
+};
+
+function renderAll(){ renderTable(); renderPreds(); renderPattern(); renderRanks(); }
+
+/* ---------- cloud sync (same Firestore as the PC app) ---------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyBryg9p-xcnNR4Ui-6DWPuYU7xpjZodHrA",
+  authDomain: "ez-lotto-testing.firebaseapp.com",
+  projectId: "ez-lotto-testing",
+  storageBucket: "ez-lotto-testing.firebasestorage.app",
+  messagingSenderId: "644914912791",
+  appId: "1:644914912791:web:ab567d8e5ee529fa7d0652"
+};
+let cloud = null, cloudBusy = false;
+function cloudPill(cls, txt){ const p=$('cloudStat'); p.className='cloudstat '+cls; p.textContent=txt; }
+
+async function initCloud(){
+  if (cloud || cloudBusy) return;
+  cloudBusy = true;
+  try{
+    cloudPill('sync','☁️ connecting…');
+    const [appM, fsM, authM] = await Promise.all([
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js'),
+    ]);
+    const fbApp = appM.getApps().length ? appM.getApp() : appM.initializeApp(firebaseConfig);
+    await authM.signInAnonymously(authM.getAuth(fbApp));
+    const db = fsM.getFirestore(fbApp);
+    cloud = { db, doc: fsM.doc, collection: fsM.collection, getDocs: fsM.getDocs, getDoc: fsM.getDoc,
+              setDoc: fsM.setDoc, deleteDoc: fsM.deleteDoc, writeBatch: fsM.writeBatch, onSnapshot: fsM.onSnapshot };
+    await Promise.race([
+      reconcile(),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('Firestore not reachable')), 25000)),
+    ]);
+    listenCloud();
+    cloudPill('ok','☁️ synced');
+  } catch(e){
+    cloud = null;
+    cloudPill('off','☁ local');
+    console.warn('Cloud sync unavailable:', e.message || e);
+  } finally { cloudBusy = false; }
+}
+
+async function reconcile(){
+  const { db, collection, getDocs, getDoc, doc, writeBatch, setDoc } = cloud;
+  const snap = await getDocs(collection(db,'draws'));
+  const remote = new Map(); snap.forEach(d => remote.set(d.id, d.data().number));
+  if (!localStorage.getItem(LS.s)){
+    // very first sync on this device: the cloud is the truth, take it wholesale
+    if (remote.size){
+      draws = [...remote].map(([date,number]) => ({date,number}));
+      saveDraws();
+    } else if (draws.length){
+      await pushMany(draws);
+    }
+    localStorage.setItem(LS.s,'1');
+  } else {
+    // later syncs: union both sides; cloud wins number conflicts
+    const toPush = draws.filter(d => !remote.has(d.date));
+    if (toPush.length) await pushMany(toPush);
+    const localMap = new Map(draws.map(d=>[d.date,d.number]));
+    let changed = false;
+    remote.forEach((number,date) => {
+      if (localMap.get(date) !== number){
+        const ex = draws.find(d=>d.date===date);
+        if (ex) ex.number = number; else draws.push({date,number});
+        changed = true;
+      }
+    });
+    if (changed) saveDraws();
+  }
+  const aref = doc(db,'meta','animals');
+  const asnap = await getDoc(aref);
+  if (asnap.exists()){
+    const m = asnap.data().map;
+    if (m && m['00'] && JSON.stringify(m) !== JSON.stringify(animals)){ animals = m; saveAnimals(); }
+  } else await setDoc(aref, { map: animals, updatedAt: Date.now() });
+  renderAll();
+}
+
+async function pushMany(rows){
+  const { db, doc, writeBatch } = cloud;
+  for (let i = 0; i < rows.length; i += 400){
+    const b = writeBatch(db);
+    rows.slice(i, i+400).forEach(d => b.set(doc(db,'draws',d.date), { number: d.number, updatedAt: Date.now() }));
+    await b.commit();
+  }
+}
+
+function listenCloud(){
+  const { db, collection, onSnapshot, doc } = cloud;
+  onSnapshot(collection(db,'draws'), snap => {
+    if (snap.metadata.hasPendingWrites) return;
+    let changed = false;
+    snap.docChanges().forEach(ch => {
+      const date = ch.doc.id;
+      if (ch.type === 'removed'){
+        if (draws.some(d=>d.date===date)){ draws = draws.filter(d=>d.date!==date); changed = true; }
+      } else {
+        const number = ch.doc.data().number;
+        const ex = draws.find(d=>d.date===date);
+        if (!ex){ draws.push({date,number}); changed = true; }
+        else if (ex.number !== number){ ex.number = number; changed = true; }
+      }
+    });
+    if (changed){ saveDraws(); renderAll(); }
+  }, () => cloudPill('off','☁ local'));
+  onSnapshot(doc(db,'meta','animals'), snap => {
+    if (!snap.exists() || snap.metadata.hasPendingWrites) return;
+    const m = snap.data().map;
+    if (m && m['00'] && JSON.stringify(m) !== JSON.stringify(animals)){ animals = m; saveAnimals(); renderAll(); }
+  });
+}
+
+async function cloudSet(date, number){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,'draws',date), { number, updatedAt: Date.now() }); }catch(e){} }
+async function cloudDel(date){ try{ if (cloud) await cloud.deleteDoc(cloud.doc(cloud.db,'draws',date)); }catch(e){} }
+async function cloudSetMany(rows){ try{ if (cloud) await pushMany(rows); }catch(e){} }
+async function cloudSetAnimals(){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,'meta','animals'), { map: animals, updatedAt: Date.now() }); }catch(e){} }
+
+$('cloudStat').onclick = () => initCloud();
+window.addEventListener('online', () => initCloud());
+
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+renderAll();
+initCloud();
+</script>
+</body>
+</html>
