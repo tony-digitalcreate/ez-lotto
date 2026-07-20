@@ -45,6 +45,13 @@ main{display:flex;flex-direction:column;gap:16px;padding:16px 14px 40px;max-widt
 .msg{margin-top:7px;font-size:.85rem;min-height:1.2em}
 .msg.ok{color:#7fdc8e}.msg.err{color:#ff7b7b}
 
+/* result of the day */
+.resultday{position:relative;overflow:hidden;min-height:205px;padding:21px 20px;border:0;background:linear-gradient(135deg,#ffb62e 0%,#ff7a32 45%,#f34c45 100%);box-shadow:0 12px 28px rgba(255,104,45,.23)}
+.resultday:before,.resultday:after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}.resultday:before{width:180px;height:180px;right:-65px;top:-75px}.resultday:after{width:110px;height:110px;right:85px;bottom:-80px}
+.resultdayhead{position:relative;z-index:1;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.84)}
+.resultdaymain{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}.resultdaynum{font-size:clamp(2.65rem,13vw,4.35rem);line-height:.95;font-weight:900;letter-spacing:3px;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 4px 16px rgba(111,38,0,.22)}.resultdayemoji{font-size:clamp(3.3rem,15vw,5.2rem);line-height:1;filter:drop-shadow(0 7px 10px rgba(100,30,0,.22))}
+.resultdayanimal{position:relative;z-index:1;margin-top:16px;color:#fff;font-size:.95rem;font-weight:800}.resultdayanimal small{font-weight:500;opacity:.8;margin-left:6px}.resultday.emptyday{min-height:170px}.resultday.emptyday .resultdaynum{font-size:1.7rem;letter-spacing:0}
+
 /* predictions / pattern */
 .pred{display:flex;flex-direction:column;gap:8px}
 .prow{display:flex;align-items:center;gap:11px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;position:relative;overflow:hidden}
@@ -64,7 +71,8 @@ main{display:flex;flex-direction:column;gap:16px;padding:16px 14px 40px;max-widt
 .bignote{color:var(--dim);font-size:.72rem;margin-top:11px}
 .patrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .patlbl{color:var(--dim);font-size:.83rem}
-#patSel{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:9px 11px;font-size:.92rem;flex:1;min-width:150px}
+#patSel{appearance:none;background:var(--grad);border:0;color:#fff;border-radius:999px;padding:10px 32px 10px 14px;font-size:.86rem;font-weight:800;flex:1;min-width:150px;outline:none}#patSel option{background:var(--panel2);color:var(--txt)}
+.followintro{color:var(--dim);font-size:.75rem;margin-bottom:10px}.followdates{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}.followdate{position:relative;z-index:1;border:1px solid var(--line);background:var(--bg);color:var(--sun1);border-radius:7px;padding:4px 7px;font-size:.64rem;cursor:pointer}
 
 /* rankings */
 .ranktabs{display:flex;gap:7px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
@@ -103,6 +111,7 @@ td.animal .aem{font-size:1rem;margin-right:4px}
 td.animal small{display:none}
 .delbtn{background:none;border:none;color:#5e5566;cursor:pointer;font-size:1rem;padding:4px 8px}
 .tstats{margin-top:9px;color:var(--dim);font-size:.78rem}
+.historytabs{display:flex;gap:5px;margin-bottom:10px;padding:3px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;width:max-content;max-width:100%}.historytab{border:0;background:transparent;color:var(--dim);border-radius:7px;padding:7px 9px;font-size:.7rem;font-weight:700}.historytab.on{background:var(--grad);color:#fff}.historysearch{display:none;position:relative;margin-bottom:10px}.historysearch.show{display:block}.historysearchbox{display:flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:5px 6px 5px 10px}.historysearchbox:focus-within{border-color:var(--sun2)}.historysearchbox input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--txt);padding:7px 1px;font-size:.87rem;letter-spacing:1.5px}.historyclear{border:0;background:transparent;color:var(--dim);padding:5px 7px}.historyresults{position:absolute;z-index:4;left:0;right:0;top:calc(100% + 4px);max-height:230px;overflow:auto;background:var(--panel2);border:1px solid var(--line);border-radius:9px;box-shadow:0 12px 28px rgba(0,0,0,.45)}.historyresult{width:100%;border:0;border-top:1px solid var(--line);background:transparent;color:var(--txt);padding:9px 10px;display:flex;align-items:center;gap:8px;text-align:left}.historyresult:first-child{border-top:0}.historyresult b{font-size:.82rem;letter-spacing:1px}.historyresult small{color:var(--dim);margin-left:auto;font-size:.68rem}.historyresultempty{padding:10px;color:var(--dim);font-size:.76rem}tbody tr.history-match{background:rgba(255,202,65,.08)}tbody tr.history-target{background:rgba(255,202,65,.22);outline:2px solid #ffd54d;outline-offset:-2px}.matchmark{background:#ffd84f;color:#211800;border-radius:3px;padding:0 1px;font-weight:800}
 
 /* actions + modal */
 .actions{display:flex;gap:9px;flex-wrap:wrap}
@@ -137,6 +146,12 @@ footer{text-align:center;color:#6d6377;font-size:.72rem;padding:0 18px 30px}
 <nav class="appnav"><button class="apptab on" data-tab="generalPane">General</button><button class="apptab" data-tab="capitalPane">Capital Management</button></nav>
 <section id="generalPane" class="tabpane on">
 <main>
+  <div class="card resultday" id="resultDay">
+    <div class="resultdayhead" id="resultDayTitle">Result of the Day</div>
+    <div class="resultdaymain"><div class="resultdaynum" id="resultDayNumber">—</div><div class="resultdayemoji" id="resultDayEmoji">🍀</div></div>
+    <div class="resultdayanimal" id="resultDayAnimal">Waiting for today's result</div>
+  </div>
+
   <div class="card">
     <h2><span class="em">✍️</span> Add today's result</h2>
     <div class="formrow">
@@ -149,23 +164,26 @@ footer{text-align:center;color:#6d6377;font-size:.72rem;padding:0 18px 30px}
   </div>
 
   <div class="card">
-    <h2><span class="em">🔮</span> Top 5 likely next — 2 digits</h2>
+    <h2><span class="em">🔮</span> Top 5 pattern followers — 2 digits</h2>
     <div class="pred" id="pred2"></div>
+    <div class="bignote" id="pred2Context">Recalibrates from the latest result and saved follow patterns.</div>
   </div>
 
   <div class="card">
-    <h2><span class="em">🔮</span> Top 5 likely next — 3 digits</h2>
+    <h2><span class="em">🔮</span> Top 5 pattern followers — 3 digits</h2>
     <div class="pred" id="pred3"></div>
-    <div class="bignote">Smart blend of 🔥 hot streaks, ⏰ overdue gaps and 📈 frequency. For fun only — every draw is random! 🍀</div>
+    <div class="bignote" id="pred3Context">Recalibrates from the latest result and saved follow patterns. For fun only — every draw is random! 🍀</div>
   </div>
 
   <div class="card">
-    <h2><span class="em">🐾</span> Pattern prediction by animal</h2>
+    <h2><span class="em">🐾</span> History Pattern</h2>
     <div class="patrow">
       <span class="patlbl">After</span>
-      <select id="patSel"></select>
+      <select id="patSel" aria-label="History Pattern animal"></select>
+      <span class="patlbl">→ top 3:</span>
     </div>
-    <div class="pred" id="patPred"></div>
+    <div class="followintro" id="followIntro">Choose an animal to see what followed it in saved history.</div>
+    <div class="pred" id="followPred"></div>
   </div>
 
   <div class="card">
@@ -183,6 +201,8 @@ footer{text-align:center;color:#6d6377;font-size:.72rem;padding:0 18px 30px}
 
   <div class="card">
     <h2><span class="em">📜</span> Draw history</h2>
+    <div class="historytabs" role="tablist" aria-label="Draw history view"><button class="historytab on" data-history-tab="all" role="tab" aria-selected="true">All history</button><button class="historytab" data-history-tab="search" role="tab" aria-selected="false">🔎 Search past results</button></div>
+    <div class="historysearch" id="historySearchPanel"><div class="historysearchbox"><span>🔎</span><input id="historySearchInput" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="Search ending, 1–6 digits"><button class="historyclear" id="historySearchClear" title="Clear search" aria-label="Clear search">✕</button></div><div class="historyresults" id="historySearchResults" hidden></div></div>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Date</th><th>Number</th><th>L2</th><th>L3</th><th>Animal</th><th></th></tr></thead>
@@ -272,6 +292,7 @@ const storageKeys=user=>user==='user1'
   ?{d:'ezlotto.draws',a:'ezlotto.animals',n:'ezlotto.notes',c:'ezlotto.capital',s:'ezlotto.synced'}
   :{d:'ezlotto.draws',a:'ezlotto.animals',n:'ezlotto.user2.notes',c:'ezlotto.user2.capital',s:'ezlotto.user2.synced'};
 let LS=storageKeys(activeUser), draws=[], animals=seedAnimals(), notes={}, capital={budgets:{},entries:[]};
+let historyHighlight='',historyTargetDate='',patternSelectionTouched=false;
 function loadLocalProfile(){
   LS=storageKeys(activeUser);draws=[];animals=seedAnimals();notes={};capital={budgets:{},entries:[]};
   try{draws=JSON.parse(localStorage.getItem(LS.d))||[]}catch(e){}
@@ -299,7 +320,7 @@ let pendingUser=activeUser;
 function applyProfile(){document.body.classList.toggle('user2',activeUser==='user2');document.querySelector('meta[name="theme-color"]').content=activeUser==='user2'?'#229dff':'#ff7e45';document.querySelectorAll('.profilebtn').forEach(b=>b.classList.toggle('on',b.dataset.user===activeUser));}
 async function activateProfile(user){
   if(user===activeUser)return;
-  stopCloudListeners();activeUser=user;localStorage.setItem('ezlotto.activeUser',user);loadLocalProfile();applyProfile();selectedWeekKey=weekKeyForDate(new Date());renderAll();
+  stopCloudListeners();activeUser=user;localStorage.setItem('ezlotto.activeUser',user);loadLocalProfile();applyProfile();selectedWeekKey=weekKeyForDate(new Date());patternSelectionTouched=false;renderAll();
   if(cloud){cloudPill('sync','☁️ switching…');await reconcile();listenCloud();markSynced();}
 }
 function showProfileLock(user){pendingUser=user;const p=PROFILE_INFO[user];$('lockEmoji').textContent=p.emoji;$('lockTitle').textContent=`Unlock ${p.name}`;$('pinInput').value='';$('pinMsg').textContent='';$('lockScreen').classList.add('show');setTimeout(()=>$('pinInput').focus(),50)}
@@ -317,6 +338,11 @@ document.querySelectorAll('.apptab').forEach(b => b.onclick = () => {
 
 /* ---------- entry ---------- */
 $('date').value = new Date().toISOString().slice(0,10);
+function renderResultOfDay(){
+  const card=$('resultDay'),latest=draws[draws.length-1];card.classList.toggle('emptyday',!latest);
+  if(!latest){$('resultDayTitle').textContent='Result of the Day';$('resultDayNumber').textContent='No result yet';$('resultDayEmoji').textContent='🍀';$('resultDayAnimal').textContent="Add today's result below";return}
+  const a=animalOf(latest);$('resultDayTitle').textContent=`Result of the Day · ${latest.date}`;$('resultDayNumber').textContent=latest.number;$('resultDayEmoji').textContent=a.emoji;$('resultDayAnimal').innerHTML=`${esc(a.en)}<small>${esc(a.th)}</small>`;
+}
 $('num').addEventListener('input', () => {
   const v = $('num').value.replace(/\D/g,''); $('num').value = v;
   if (v.length >= 3){
@@ -347,12 +373,24 @@ function delDraw(date){
 let undoAction=null,undoTimer=null;function showUndo(text,action){undoAction=action;$('undoText').textContent=text;$('undoBar').classList.add('show');clearTimeout(undoTimer);undoTimer=setTimeout(()=>$('undoBar').classList.remove('show'),7000)}$('undoBtn').onclick=async()=>{const action=undoAction;undoAction=null;clearTimeout(undoTimer);$('undoBar').classList.remove('show');if(action)await action()};
 
 /* ---------- history ---------- */
+const markedEnding=(value,ending)=>{const safe=esc(value);if(!ending||!value.endsWith(ending))return safe;return`${esc(value.slice(0,-ending.length))}<mark class="matchmark">${esc(ending)}</mark>`};
+function renderHistorySearch(){
+  const input=$('historySearchInput'),results=$('historySearchResults'),q=input.value.replace(/\D/g,'').slice(0,6);if(input.value!==q)input.value=q;
+  if(!q){results.hidden=true;results.innerHTML='';return}
+  const hits=[...draws].reverse().filter(d=>d.number.endsWith(q));results.hidden=false;
+  results.innerHTML=hits.length?hits.map(d=>{const a=animalOf(d);return`<button class="historyresult" data-date="${d.date}" data-ending="${q}"><span>${a.emoji}</span><b>${markedEnding(d.number,q)}</b><small>${d.date}</small></button>`}).join(''):`<div class="historyresultempty">No saved number ends in <b>${q}</b>.</div>`;
+  results.querySelectorAll('.historyresult').forEach(b=>b.onclick=()=>jumpToHistory(b.dataset.date,b.dataset.ending));
+}
+function jumpToHistory(date,ending=''){historyHighlight=ending;historyTargetDate=date;renderTable();$('historySearchResults').hidden=true;const row=$(`draw-row-${date}`);if(!row)return;$('historySearchPanel').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>row.scrollIntoView({behavior:'smooth',block:'center'}),180)}
+document.querySelectorAll('.historytab').forEach(b=>b.onclick=()=>{const searching=b.dataset.historyTab==='search';document.querySelectorAll('.historytab').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-selected',String(x===b))});$('historySearchPanel').classList.toggle('show',searching);if(searching)setTimeout(()=>$('historySearchInput').focus(),30)});
+$('historySearchInput').oninput=renderHistorySearch;$('historySearchInput').onfocus=renderHistorySearch;$('historySearchInput').onkeydown=e=>{if(e.key==='Escape')$('historySearchResults').hidden=true};$('historySearchClear').onclick=()=>{$('historySearchInput').value='';historyHighlight='';historyTargetDate='';renderHistorySearch();renderTable();$('historySearchInput').focus()};
 function renderTable(){
   const rows = [...draws].reverse().map(d => {
     const a = ani(l2(d.number));
-    return `<tr><td>${d.date}</td><td class="num">${d.number}</td>
-      <td><span class="chip l2">${l2(d.number)}</span></td>
-      <td><span class="chip l3">${l3(d.number)}</span></td>
+    const matches=historyHighlight&&d.number.endsWith(historyHighlight),classes=`${matches?'history-match ':''}${d.date===historyTargetDate?'history-target':''}`.trim();
+    return `<tr id="draw-row-${d.date}"${classes?` class="${classes}"`:''}><td>${d.date}</td><td class="num">${markedEnding(d.number,historyHighlight)}</td>
+      <td><span class="chip l2">${markedEnding(l2(d.number),historyHighlight)}</span></td>
+      <td><span class="chip l3">${markedEnding(l3(d.number),historyHighlight)}</span></td>
       <td class="animal"><span class="aem">${a.emoji}</span>${esc(a.en)}</td>
       <td><button class="delbtn" onclick="delDraw('${d.date}')" title="Delete">✕</button></td></tr>`;
   }).join('');
@@ -360,45 +398,27 @@ function renderTable(){
   $('tstats').textContent = draws.length ? `${draws.length} draws · ${draws[0].date} → ${draws[draws.length-1].date}` : '';
 }
 
-/* ---------- predictions ---------- */
-function stats(keyFn, universe){
-  const N = draws.length;
-  const cnt = {}, last = {};
-  draws.forEach((d,i) => { const k = keyFn(d.number); cnt[k]=(cnt[k]||0)+1; last[k]=i; });
-  return { N, cnt, last, universe };
-}
-function blend(st, recentWin){
-  const { N, cnt, last } = st;
-  const recent = {};
-  draws.slice(-recentWin).forEach(d => { const k = st.keyFn(d.number); recent[k]=(recent[k]||0)+1; });
-  const maxAll = Math.max(1,...Object.values(cnt));
-  const maxRec = Math.max(1,...Object.values(recent));
-  const top10 = Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,10).map(e=>e[0]);
-  return st.universe.map(k => {
-    const c = cnt[k]||0, rc = recent[k]||0;
-    const gap = (k in last) ? (N-1 - last[k]) : N;
-    const avgGap = N / Math.max(c,1);
-    const over = Math.min(gap/avgGap, 2)/2;
-    const score = .45*(rc/maxRec) + .30*over + .25*(c/maxAll);
-    const why = [];
-    if (rc >= 2) why.push(['hot','🔥 Hot']);
-    if (gap/avgGap >= 1.4 && c > 0) why.push(['due','⏰ Overdue']);
-    if (top10.includes(k) && c >= 2) why.push(['freq','📈 Frequent']);
-    return { k, c, rc, gap, score, why };
-  }).sort((a,b) => b.score - a.score || b.c - a.c);
+/* ---------- predictions: conditional frequency from the latest result ---------- */
+const addCount=(map,key)=>{map[key]=(map[key]||0)+1};
+function patternFollowers(keyFn,universe,recentWin){
+  const latest=draws[draws.length-1],currentKey=keyFn(latest.number),currentAnimal=animalOf(latest).en,currentDigit=latest.number.slice(-1),all={},recent={},exact={},sameAnimal={},sameDigit={};let exactTotal=0,animalTotal=0,digitTotal=0;
+  draws.forEach(d=>addCount(all,keyFn(d.number)));draws.slice(-recentWin).forEach(d=>addCount(recent,keyFn(d.number)));
+  for(let i=0;i<draws.length-1;i++){const previous=draws[i],nextKey=keyFn(draws[i+1].number);if(keyFn(previous.number)===currentKey){addCount(exact,nextKey);exactTotal++}if(animalOf(previous).en===currentAnimal){addCount(sameAnimal,nextKey);animalTotal++}if(previous.number.slice(-1)===currentDigit){addCount(sameDigit,nextKey);digitTotal++}}
+  const weights={exact:.45*Math.min(1,exactTotal/5),animal:.25*Math.min(1,animalTotal/8),digit:.15*Math.min(1,digitTotal/15),recent:.10,all:.05},recentTotal=Math.min(recentWin,draws.length),allTotal=draws.length;
+  return universe.map(k=>{const c=all[k]||0,rc=recent[k]||0,ec=exact[k]||0,ac=sameAnimal[k]||0,dc=sameDigit[k]||0,score=weights.exact*(ec/Math.max(1,exactTotal))+weights.animal*(ac/Math.max(1,animalTotal))+weights.digit*(dc/Math.max(1,digitTotal))+weights.recent*(rc/Math.max(1,recentTotal))+weights.all*(c/Math.max(1,allTotal)),why=[];if(ec)why.push(['hot',`after ${currentKey}: ${ec}/${exactTotal}`]);if(ac)why.push(['freq',`after ${currentAnimal}: ${ac}/${animalTotal}`]);if(dc)why.push(['due',`after •${currentDigit}: ${dc}/${digitTotal}`]);return{k,c,rc,score,why}}).filter(x=>x.c>0).sort((a,b)=>b.score-a.score||b.rc-a.rc||b.c-a.c||a.k.localeCompare(b.k));
 }
 function renderPred(el, items, three){
   const maxS = Math.max(...items.map(i=>i.score), .0001);
   el.innerHTML = items.slice(0,5).map((it,i) => {
     const a = ani(l2(it.k));
-    const tags = it.why.map(w=>`<span class="tag ${w[0]}">${w[1]}</span>`).join('') || '<span class="tag">🎲 Wildcard</span>';
+    const tags = it.why.map(w=>`<span class="tag ${w[0]}">${w[1]}</span>`).join('') || '<span class="tag">all-time frequency</span>';
     return `<div class="prow${three?' three':''}">
       <span class="rank">#${i+1}</span>
       <span class="pnum">${it.k}</span>
       <span class="pem">${a.emoji}</span>
       <div class="pmeta">
         <div class="aname">${esc(a.en)}<small>${esc(a.th)}</small></div>
-        <div class="why">${tags}<span class="tag">seen ${it.c}× · last ${it.gap} ago</span></div>
+        <div class="why">${tags}<span class="tag">recent ${it.rc}× · all-time ${it.c}×</span></div>
       </div>
       <div class="scorebar" style="width:${Math.round(it.score/maxS*100)}%"></div>
     </div>`;
@@ -406,12 +426,12 @@ function renderPred(el, items, three){
 }
 function renderPreds(){
   if (!draws.length){ renderPred($('pred2'),[],false); renderPred($('pred3'),[],true); return; }
+  const latest=draws[draws.length-1],latestAnimal=animalOf(latest);
   const u2 = Array.from({length:100},(_,i)=>String(i).padStart(2,'0'));
-  const s2 = stats(l2, u2); s2.keyFn = l2;
-  renderPred($('pred2'), blend(s2, 24), false);
+  renderPred($('pred2'),patternFollowers(l2,u2,30),false);
   const seen3 = [...new Set(draws.map(d=>l3(d.number)))];
-  const s3 = stats(l3, seen3); s3.keyFn = l3;
-  renderPred($('pred3'), blend(s3, 40), true);
+  renderPred($('pred3'),patternFollowers(l3,seen3,45),true);
+  const context=`Latest ${latest.number} · ${latestAnimal.emoji} ${latestAnimal.en}. Ranked by what followed the same ending, animal and last digit, then recent/all-time frequency.`;$('pred2Context').textContent=context;$('pred3Context').textContent=context+' For fun only — every draw is random! 🍀';
 }
 
 /* ---------- pattern by animal ---------- */
@@ -426,40 +446,15 @@ function animalGroups(){
   return [...g.values()].sort((x,y) => x.nums[0].localeCompare(y.nums[0]));
 }
 const animalOf = d => ani(l2(d.number));
-$('patSel').onchange = renderPattern;
-function renderPattern(){
-  const sel = $('patSel');
-  const groups = animalGroups();
-  const keep = sel.value;
-  sel.innerHTML = groups.map(g=>`<option value="${esc(g.en)}">${g.emoji} ${esc(g.en)} · ${esc(g.th)}</option>`).join('');
-  if (keep && groups.some(g=>g.en===keep)) sel.value = keep;
-  else if (draws.length) sel.value = animalOf(draws[draws.length-1]).en;
-  const target = sel.value;
-  const followers = {};
-  let times = 0;
-  for (let i = 0; i < draws.length - 1; i++){
-    if (animalOf(draws[i]).en === target){
-      times++;
-      const nx = animalOf(draws[i+1]).en;
-      followers[nx] = (followers[nx]||0) + 1;
-    }
-  }
-  const rows = Object.entries(followers).sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,5);
-  const byEn = Object.fromEntries(groups.map(g=>[g.en,g]));
-  const t = byEn[target];
-  $('patPred').innerHTML = rows.map(([en,c],i) => {
-    const g = byEn[en] || {emoji:'🐾', en, th:'', nums:[]};
-    const pct = Math.round(c/times*100);
-    return `<div class="prow">
-      <span class="rank">#${i+1}</span>
-      <span class="pem">${g.emoji}</span>
-      <div class="pmeta">
-        <div class="aname">${esc(g.en)}<small>${esc(g.th)}</small></div>
-        <div class="why"><span class="tag freq">followed ${c} of ${times} · ${pct}%</span><span class="tag">numbers: ${g.nums.join(' ')}</span></div>
-      </div>
-      <div class="scorebar" style="width:${pct}%"></div>
-    </div>`;
-  }).join('') || `<div class="empty">${t ? t.emoji+' '+esc(target)+' has no next-draw history yet.' : 'Waiting for draws…'}</div>`;
+$('patSel').onchange=()=>{patternSelectionTouched=true;renderHistoryPattern()};
+function renderHistoryPattern(){
+  const out=$('followPred'),intro=$('followIntro'),sel=$('patSel'),groupList=animalGroups(),keep=sel.value;sel.innerHTML=groupList.map(g=>`<option value="${esc(g.en)}">${g.emoji} ${esc(g.en)} · ${esc(g.th)}</option>`).join('');if(patternSelectionTouched&&keep&&groupList.some(g=>g.en===keep))sel.value=keep;else if(draws.length)sel.value=animalOf(draws[draws.length-1]).en;
+  if(draws.length<2){intro.textContent='Choose an animal to see what followed it in saved history.';out.innerHTML='<div class="empty">Add at least two draws to unlock History Pattern.</div>';return}
+  const latest=draws[draws.length-1],target=groupList.find(g=>g.en===sel.value)||animalOf(latest),followers={},examples={},overall={},overallExamples={};let times=0;
+  for(let i=0;i<draws.length-1;i++){const next=animalOf(draws[i+1]);overall[next.en]=(overall[next.en]||0)+1;(overallExamples[next.en]||=[]).push({from:draws[i].date,date:draws[i+1].date,number:draws[i+1].number});if(animalOf(draws[i]).en!==target.en)continue;times++;followers[next.en]=(followers[next.en]||0)+1;(examples[next.en]||=[]).push({from:draws[i].date,date:draws[i+1].date,number:draws[i+1].number})}
+  intro.innerHTML=`Showing what historically followed ${target.emoji} <b>${esc(target.en)}</b>. Latest result: <b>${latest.number}</b> · ${latest.date}.`;const groups=Object.fromEntries(groupList.map(g=>[g.en,g])),rows=Object.entries(followers).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,3).map(([en,count])=>({en,count,basis:'animal'}));
+  if(rows.length<3){const used=new Set(rows.map(x=>x.en));for(const[en,count]of Object.entries(overall).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))){if(used.has(en))continue;rows.push({en,count,basis:'overall'});used.add(en);if(rows.length===3)break}}
+  out.innerHTML=rows.map(({en,count,basis},index)=>{const g=groups[en]||{emoji:'🐾',en,th:'',nums:[]},total=basis==='animal'?times:draws.length-1,pct=Math.round(count/total*100),history=basis==='animal'?examples[en]:overallExamples[en],dates=[...history].reverse().slice(0,3).map(x=>`<button class="followdate" onclick="jumpToHistory('${x.date}')" title="After ${x.from}: ${x.number}">${x.date} · ${x.number}</button>`).join(''),detail=basis==='animal'?`followed ${count} of ${total} · ${pct}%`:`overall fallback · ${count} of ${total}`;return`<div class="prow"><span class="rank">#${index+1}</span><span class="pem">${g.emoji}</span><div class="pmeta"><div class="aname">${esc(g.en)}<small>${esc(g.th)}</small></div><div class="why"><span class="tag freq">${detail}</span><span class="tag">numbers: ${g.nums.join(' ')}</span></div><div class="followdates">${dates}</div></div><div class="scorebar" style="width:${Math.max(6,pct)}%"></div></div>`}).join('');
 }
 
 /* ---------- rankings ---------- */
@@ -635,7 +630,7 @@ $('spendAdd').onclick=()=>{const date=$('spendDate').value,amount=Number($('spen
 let editingCapitalId=null;function editCapitalEntry(id){const e=(capital.entries||[]).find(x=>x.id===id);if(!e)return;editingCapitalId=id;$('editEntryDate').value=e.date;$('editEntryType').value=e.type;$('editEntryAmount').value=e.amount;$('editEntryNote').value=e.note||'';$('editCapitalDlg').showModal()}function closeCapitalEditor(){$('editCapitalDlg').close();editingCapitalId=null}$('editCapitalClose').onclick=$('editCapitalCancel').onclick=closeCapitalEditor;$('editCapitalSave').onclick=()=>{const e=(capital.entries||[]).find(x=>x.id===editingCapitalId),date=$('editEntryDate').value,type=$('editEntryType').value,amount=Number($('editEntryAmount').value);if(!e||!date||!['gain','loss','spend'].includes(type)||!Number.isFinite(amount)||amount<=0)return;e.date=date;e.type=type;e.amount=amount;e.note=$('editEntryNote').value.trim();selectedWeekKey=weekKeyForDate(date);closeCapitalEditor();saveCapital()};
 function deleteCapitalEntry(id){if(!confirm('Delete this capital entry?'))return;const removed=(capital.entries||[]).find(e=>e.id===id);capital.entries=(capital.entries||[]).filter(e=>e.id!==id);saveCapital();if(removed)showUndo('Capital entry deleted',()=>{capital.entries.push(removed);selectedWeekKey=weekKeyForDate(removed.date);saveCapital()})}
 
-function renderAll(){ renderTable(); renderPreds(); renderPattern(); renderRanks(); renderExplorer(); renderHeatmap(); renderCapital(); }
+function renderAll(){ renderResultOfDay();renderTable();renderHistorySearch();renderPreds();renderHistoryPattern();renderRanks();renderExplorer();renderHeatmap();renderCapital(); }
 function profileBackup(){return{app:'EZ LOTTO',version:2,profile:activeUser,name:PROFILE_INFO[activeUser].name,exportedAt:new Date().toISOString(),draws,animals,notes,capital}}
 $('backupBtn').onclick=()=>{const blob=new Blob([JSON.stringify(profileBackup(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ez-lotto-${PROFILE_INFO[activeUser].name.toLowerCase()}-${localDate(new Date())}.json`;a.click();URL.revokeObjectURL(url)};$('restoreBtn').onclick=()=>$('restoreFile').click();$('restoreFile').onchange=async e=>{const file=e.target.files[0];e.target.value='';if(!file)return;try{const backup=JSON.parse(await file.text());if(backup.app!=='EZ LOTTO'||!Array.isArray(backup.draws)||!backup.animals||!backup.capital)throw new Error('invalid');if(!confirm(`Replace all ${PROFILE_INFO[activeUser].name} data with this backup?`))return;draws=backup.draws;animals=backup.animals;notes=backup.notes||{};capital=backup.capital;saveDraws();saveAnimals();saveNotes();saveCapitalLocal();renderAll();if(cloud)await replaceCloudProfile();alert(`${PROFILE_INFO[activeUser].name}'s backup was restored.`)}catch(err){alert('Could not restore this file. Please choose a valid EZ LOTTO backup.')}};
 
