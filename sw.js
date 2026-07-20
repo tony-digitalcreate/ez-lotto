@@ -1,6 +1,6 @@
 // EZ LOTTO offline shell — caches the app + Firebase SDK modules so the
 // installed PWA opens with no signal. Firestore traffic itself is never cached.
-const CACHE = 'ezlotto-v3';
+const CACHE = 'ezlotto-v4';
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
