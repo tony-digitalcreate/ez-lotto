@@ -270,7 +270,7 @@ function seedAnimals(){
 let activeUser=localStorage.getItem('ezlotto.activeUser')==='user2'?'user2':'user1';
 const storageKeys=user=>user==='user1'
   ?{d:'ezlotto.draws',a:'ezlotto.animals',n:'ezlotto.notes',c:'ezlotto.capital',s:'ezlotto.synced'}
-  :{d:'ezlotto.user2.draws',a:'ezlotto.user2.animals',n:'ezlotto.user2.notes',c:'ezlotto.user2.capital',s:'ezlotto.user2.synced'};
+  :{d:'ezlotto.draws',a:'ezlotto.animals',n:'ezlotto.user2.notes',c:'ezlotto.user2.capital',s:'ezlotto.user2.synced'};
 let LS=storageKeys(activeUser), draws=[], animals=seedAnimals(), notes={}, capital={budgets:{},entries:[]};
 function loadLocalProfile(){
   LS=storageKeys(activeUser);draws=[];animals=seedAnimals();notes={};capital={budgets:{},entries:[]};
@@ -291,8 +291,9 @@ const l2 = n => n.slice(-2);
 const l3 = n => n.slice(-3);
 const ani = k => animals[k] || { en:'?', th:'', emoji:'🐾' };
 const localDate = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const cloudDrawsName=()=>activeUser==='user1'?'draws':'draws_user2';
-const cloudMetaName=name=>activeUser==='user1'?name:`${name}_user2`;
+// Draw history and the animal chart are shared; notes and capital stay private.
+const cloudDrawsName=()=>'draws';
+const cloudMetaName=name=>name==='animals'||activeUser==='user1'?name:`${name}_user2`;
 const PROFILE_INFO={user1:{name:'Sandy',emoji:'🐱',hash:'e17048119e86c59f66498e4fc2a28278b109a3a1128a4d64234457f0ab000233'},user2:{name:'Tony',emoji:'🐻',hash:'f39d455f5d38907394d6da3a91da4e391f9a34bd6a17e826d6042761067e88f4'}};
 let pendingUser=activeUser;
 function applyProfile(){document.body.classList.toggle('user2',activeUser==='user2');document.querySelector('meta[name="theme-color"]').content=activeUser==='user2'?'#229dff':'#ff7e45';document.querySelectorAll('.profilebtn').forEach(b=>b.classList.toggle('on',b.dataset.user===activeUser));}
