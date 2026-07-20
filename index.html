@@ -17,6 +17,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+body.user2{--bg:#07131f;--panel:#0d2033;--panel2:#132c45;--line:#244865;--txt:#eff8ff;--dim:#91aec8;--sun1:#52dcff;--sun2:#229dff;--sun3:#4169e1;--sun4:#756cff;--grad:linear-gradient(135deg,var(--sun1),var(--sun2) 40%,var(--sun3) 72%,var(--sun4))}
 header{display:flex;align-items:center;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
 .logo{width:38px;height:38px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(255,110,80,.35);flex:none}
 .logo span{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:1.5rem;color:#fff;transform:translateY(-2px)}
@@ -85,7 +86,7 @@ main{display:flex;flex-direction:column;gap:16px;padding:16px 14px 40px;max-widt
 .exploreanimal{display:flex;align-items:center;gap:9px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:11px}.exploreanimal .xem{font-size:1.45rem}.exploreanimal small{display:block;color:var(--dim);font-size:.74rem;margin-top:2px}.trend{font-size:.8rem;padding:9px 10px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);margin-bottom:12px}.trend.up{border-color:#7a5230;color:#ffc27a}.trend.down{border-color:#31567a;color:#a8d7ff}.monthbars{display:flex;flex-direction:column;gap:7px}.monthrow{display:grid;grid-template-columns:65px 1fr 24px;gap:7px;align-items:center;font-size:.76rem}.monthrow .bar{height:7px;background:var(--panel2);border-radius:20px;overflow:hidden}.monthrow .bar i{display:block;height:100%;background:var(--grad);border-radius:20px}.monthrow .mcount{color:var(--sun1);font-weight:700;text-align:right}.hitlist{display:flex;flex-wrap:wrap;gap:6px;max-height:145px;overflow:auto}.hit{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:5px 7px;font-size:.7rem}.hit b{color:var(--sun1);margin-left:4px}
 .notebox{display:flex;flex-direction:column;gap:7px;margin-top:14px}.notebox label{font-size:.7rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px}.notebox textarea{min-height:115px;resize:vertical;background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:var(--txt);padding:9px;font:inherit;outline:none}.notebox textarea:focus{border-color:var(--sun2)}.notesave{align-self:flex-start}.exploreempty{color:var(--dim);font-size:.84rem;padding:8px 0}.explorersection h3{font-size:.75rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px}
 .heathead{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:12px}.heathead .hint{font-size:.72rem;color:var(--dim);flex-basis:100%}.heatgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.hcell{border:1px solid var(--line);border-radius:9px;min-height:57px;padding:6px;cursor:pointer;color:var(--txt);text-align:left;position:relative}.hnum{font-weight:800;font-size:.92rem;font-variant-numeric:tabular-nums;letter-spacing:1px}.hmeta{display:block;font-size:.59rem;color:var(--dim);margin-top:4px}.hemoji{position:absolute;right:5px;bottom:4px;font-size:.72rem;opacity:.75}.htab{background:var(--panel2);border:1px solid var(--line);color:var(--dim);border-radius:20px;padding:6px 10px;font-size:.7rem;cursor:pointer}.htab.on{background:var(--grad);color:#fff;border-color:transparent;font-weight:700}
-.appnav{display:flex;gap:5px;margin:12px 14px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:11px}.apptab{flex:1;border:0;background:transparent;color:var(--dim);border-radius:8px;padding:9px 5px;font-size:.78rem;font-weight:700}.apptab.on{background:var(--grad);color:#fff}.tabpane{display:none}.tabpane.on{display:block}.capitalwrap{display:flex;flex-direction:column;gap:14px;padding:2px 14px 36px;max-width:640px;margin:0 auto}.weekline h2{font-size:1.08rem}.weekline span{color:var(--dim);font-size:.76rem}.capsummary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.capstat{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px}.capstat span{display:block;color:var(--dim);font-size:.6rem;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}.capstat b{font-size:.98rem}.positive{color:#7fdc8e!important}.negative{color:#ff7b7b!important}.capform{display:flex;gap:8px;align-items:end;flex-wrap:wrap}.capform .field{min-width:105px}.capform select,.capform input{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:10px;font-size:.83rem;outline:none;width:100%}.piearea{display:flex;align-items:center;gap:18px;justify-content:center;min-height:160px}.pie{width:125px;height:125px;border-radius:50%;background:#302a35;position:relative}.pie:after{content:'';position:absolute;inset:24px;border-radius:50%;background:var(--panel)}.pielegend{display:flex;flex-direction:column;gap:9px;font-size:.78rem}.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}.dot.g{background:#55c97a}.dot.l{background:#ff626f}.captablewrap{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:10px}.ctype{font-weight:700}.ctype.gain{color:#7fdc8e}.ctype.loss,.ctype.spend{color:#ff7b7b}.captotal{display:flex;justify-content:flex-end;gap:8px;margin-top:9px;font-size:.83rem;font-weight:700}.capbars{height:205px;display:flex;align-items:end;gap:5px;padding:12px 2px 0;border-bottom:1px solid var(--line)}.daybar{height:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:6px}.daybar .amount{font-size:.56rem;color:var(--dim)}.daybar .bar{width:62%;min-height:3px;background:var(--grad);border-radius:7px 7px 2px 2px}.daybar b{font-size:.67rem;color:var(--dim)}.capmsg{font-size:.75rem;min-height:1em;margin-top:7px}.capdel{background:none;border:0;color:#6d6377;font-size:1rem}.capitalwrap .card{padding:14px}.capitalwrap table{font-size:.73rem}.capitalwrap tbody td{padding:7px 5px}.capitalwrap thead th{padding:7px 5px;font-size:.58rem}
+.profiles{display:flex;gap:5px;margin:12px 14px 0;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:11px}.profilebtn{flex:1;border:0;background:transparent;color:var(--dim);border-radius:8px;padding:9px 5px;font-size:.76rem;font-weight:700}.profilebtn span{font-size:1rem;margin-right:4px}.profilebtn.on{background:var(--grad);color:#fff}.appnav{display:flex;gap:5px;margin:8px 14px 12px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:11px}.apptab{flex:1;border:0;background:transparent;color:var(--dim);border-radius:8px;padding:9px 5px;font-size:.78rem;font-weight:700}.apptab.on{background:var(--grad);color:#fff}.tabpane{display:none}.tabpane.on{display:block}.capitalwrap{display:flex;flex-direction:column;gap:14px;padding:2px 14px 36px;max-width:640px;margin:0 auto}.weekline h2{font-size:1.08rem}.weekline span{color:var(--dim);font-size:.76rem}.capsummary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.capstat{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px}.capstat span{display:block;color:var(--dim);font-size:.6rem;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}.capstat b{font-size:.98rem}.positive{color:#7fdc8e!important}.negative{color:#ff7b7b!important}.capform{display:flex;gap:8px;align-items:end;flex-wrap:wrap}.capform .field{min-width:105px}.capform select,.capform input{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:10px;font-size:.83rem;outline:none;width:100%}.piearea{display:flex;align-items:center;gap:18px;justify-content:center;min-height:160px}.pie{width:125px;height:125px;border-radius:50%;background:#302a35;position:relative}.pie:after{content:'';position:absolute;inset:24px;border-radius:50%;background:var(--panel)}.pielegend{display:flex;flex-direction:column;gap:9px;font-size:.78rem}.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}.dot.g{background:#55c97a}.dot.l{background:#ff626f}.captablewrap{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:10px}.ctype{font-weight:700}.ctype.gain{color:#7fdc8e}.ctype.loss,.ctype.spend{color:#ff7b7b}.captotal{display:flex;justify-content:flex-end;gap:8px;margin-top:9px;font-size:.83rem;font-weight:700}.capbars{height:205px;display:flex;align-items:end;gap:5px;padding:12px 2px 0;border-bottom:1px solid var(--line)}.daybar{height:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:6px}.daybar .amount{font-size:.56rem;color:var(--dim)}.daybar .bar{width:62%;min-height:3px;background:var(--grad);border-radius:7px 7px 2px 2px}.daybar b{font-size:.67rem;color:var(--dim)}.capmsg{font-size:.75rem;min-height:1em;margin-top:7px}.capdel{background:none;border:0;color:#6d6377;font-size:1rem}.capitalwrap .card{padding:14px}.capitalwrap table{font-size:.73rem}.capitalwrap tbody td{padding:7px 5px}.capitalwrap thead th{padding:7px 5px;font-size:.58rem}
 .weekline{display:flex;flex-direction:column;gap:9px}.weekcontrols{display:flex;align-items:center;gap:5px;width:100%}.weekcontrols button,.weekcontrols select{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px;font-size:.75rem}.weekcontrols button{font-size:1rem;line-height:1}.weekcontrols select{flex:1;min-width:0}.capleaders{display:grid;grid-template-columns:1fr 1fr;gap:8px}.capleader{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px}.capleader span{display:block;color:var(--dim);font-size:.58rem;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}.capleader b{display:block;font-size:.8rem}.capleader small{display:block;color:var(--dim);font-size:.62rem;margin-top:3px}
 .empty{color:var(--dim);font-size:.85rem;padding:8px 4px}
 
@@ -130,6 +131,7 @@ footer{text-align:center;color:#6d6377;font-size:.72rem;padding:0 18px 30px}
   <button class="cloudstat off" id="cloudStat" title="Cloud sync — tap to retry">☁ local</button>
 </header>
 
+<nav class="profiles" aria-label="User profile"><button class="profilebtn on" data-user="user1"><span>🐱</span>User 1</button><button class="profilebtn" data-user="user2"><span>🐻</span>User 2</button></nav>
 <nav class="appnav"><button class="apptab on" data-tab="generalPane">General</button><button class="apptab" data-tab="capitalPane">Capital Management</button></nav>
 <section id="generalPane" class="tabpane on">
 <main>
@@ -255,12 +257,19 @@ function seedAnimals(){
   }
   return m;
 }
-const LS = { d:'ezlotto.draws', a:'ezlotto.animals', n:'ezlotto.notes', c:'ezlotto.capital', s:'ezlotto.synced' };
-let draws = [], animals = seedAnimals(), notes = {}, capital = {budgets:{},entries:[]};
-try { draws = JSON.parse(localStorage.getItem(LS.d)) || []; } catch(e) {}
-try { const a = JSON.parse(localStorage.getItem(LS.a)); if (a && a['00']) animals = a; } catch(e) {}
-try { notes = JSON.parse(localStorage.getItem(LS.n)) || {}; } catch(e) {}
-try { capital = JSON.parse(localStorage.getItem(LS.c)) || capital; } catch(e) {}
+let activeUser=localStorage.getItem('ezlotto.activeUser')==='user2'?'user2':'user1';
+const storageKeys=user=>user==='user1'
+  ?{d:'ezlotto.draws',a:'ezlotto.animals',n:'ezlotto.notes',c:'ezlotto.capital',s:'ezlotto.synced'}
+  :{d:'ezlotto.user2.draws',a:'ezlotto.user2.animals',n:'ezlotto.user2.notes',c:'ezlotto.user2.capital',s:'ezlotto.user2.synced'};
+let LS=storageKeys(activeUser), draws=[], animals=seedAnimals(), notes={}, capital={budgets:{},entries:[]};
+function loadLocalProfile(){
+  LS=storageKeys(activeUser);draws=[];animals=seedAnimals();notes={};capital={budgets:{},entries:[]};
+  try{draws=JSON.parse(localStorage.getItem(LS.d))||[]}catch(e){}
+  try{const a=JSON.parse(localStorage.getItem(LS.a));if(a&&a['00'])animals=a}catch(e){}
+  try{notes=JSON.parse(localStorage.getItem(LS.n))||{}}catch(e){}
+  try{capital=JSON.parse(localStorage.getItem(LS.c))||capital}catch(e){}
+}
+loadLocalProfile();
 function saveDraws(){ draws.sort((a,b)=>a.date.localeCompare(b.date)); localStorage.setItem(LS.d, JSON.stringify(draws)); }
 function saveAnimals(){ localStorage.setItem(LS.a, JSON.stringify(animals)); }
 function saveNotes(){ localStorage.setItem(LS.n, JSON.stringify(notes)); }
@@ -272,6 +281,16 @@ const l2 = n => n.slice(-2);
 const l3 = n => n.slice(-3);
 const ani = k => animals[k] || { en:'?', th:'', emoji:'🐾' };
 const localDate = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const cloudDrawsName=()=>activeUser==='user1'?'draws':'draws_user2';
+const cloudMetaName=name=>activeUser==='user1'?name:`${name}_user2`;
+function applyProfile(){document.body.classList.toggle('user2',activeUser==='user2');document.querySelector('meta[name="theme-color"]').content=activeUser==='user2'?'#229dff':'#ff7e45';document.querySelectorAll('.profilebtn').forEach(b=>b.classList.toggle('on',b.dataset.user===activeUser));}
+async function switchProfile(user){
+  if(user===activeUser)return;
+  stopCloudListeners();activeUser=user;localStorage.setItem('ezlotto.activeUser',user);loadLocalProfile();applyProfile();selectedWeekKey=weekKeyForDate(new Date());renderAll();
+  if(cloud){cloudPill('sync','☁️ switching…');await reconcile();listenCloud();cloudPill('ok','☁️ synced');}
+}
+document.querySelectorAll('.profilebtn').forEach(b=>b.onclick=()=>switchProfile(b.dataset.user));
+applyProfile();
 
 document.querySelectorAll('.apptab').forEach(b => b.onclick = () => {
   document.querySelectorAll('.apptab').forEach(x=>x.classList.toggle('on',x===b));
@@ -603,7 +622,7 @@ const firebaseConfig = {
   messagingSenderId: "644914912791",
   appId: "1:644914912791:web:ab567d8e5ee529fa7d0652"
 };
-let cloud = null, cloudBusy = false;
+let cloud = null, cloudBusy = false, cloudUnsubs = [];
 function cloudPill(cls, txt){ const p=$('cloudStat'); p.className='cloudstat '+cls; p.textContent=txt; }
 
 async function initCloud(){
@@ -636,7 +655,7 @@ async function initCloud(){
 
 async function reconcile(){
   const { db, collection, getDocs, getDoc, doc, writeBatch, setDoc } = cloud;
-  const snap = await getDocs(collection(db,'draws'));
+  const drawCollection=cloudDrawsName(),snap = await getDocs(collection(db,drawCollection));
   const remote = new Map(); snap.forEach(d => remote.set(d.id, d.data().number));
   if (!localStorage.getItem(LS.s)){
     // very first sync on this device: the cloud is the truth, take it wholesale
@@ -662,19 +681,19 @@ async function reconcile(){
     });
     if (changed) saveDraws();
   }
-  const aref = doc(db,'meta','animals');
+  const aref = doc(db,'meta',cloudMetaName('animals'));
   const asnap = await getDoc(aref);
   if (asnap.exists()){
     const m = asnap.data().map;
     if (m && m['00'] && JSON.stringify(m) !== JSON.stringify(animals)){ animals = m; saveAnimals(); }
   } else await setDoc(aref, { map: animals, updatedAt: Date.now() });
-  const nref = doc(db,'meta','notes');
+  const nref = doc(db,'meta',cloudMetaName('notes'));
   const nsnap = await getDoc(nref);
   if (nsnap.exists()){
     const remoteNotes = nsnap.data().map;
     if (remoteNotes && JSON.stringify(remoteNotes) !== JSON.stringify(notes)){ notes = remoteNotes; saveNotes(); }
   } else await setDoc(nref, { map: notes, updatedAt: Date.now() });
-  const cref=doc(db,'meta','capital');
+  const cref=doc(db,'meta',cloudMetaName('capital'));
   const csnap=await getDoc(cref);
   if(csnap.exists()){
     const remoteCapital=csnap.data().value;
@@ -687,14 +706,16 @@ async function pushMany(rows){
   const { db, doc, writeBatch } = cloud;
   for (let i = 0; i < rows.length; i += 400){
     const b = writeBatch(db);
-    rows.slice(i, i+400).forEach(d => b.set(doc(db,'draws',d.date), { number: d.number, updatedAt: Date.now() }));
+    rows.slice(i, i+400).forEach(d => b.set(doc(db,cloudDrawsName(),d.date), { number: d.number, updatedAt: Date.now() }));
     await b.commit();
   }
 }
 
 function listenCloud(){
   const { db, collection, onSnapshot, doc } = cloud;
-  onSnapshot(collection(db,'draws'), snap => {
+  stopCloudListeners();const listenerUser=activeUser,valid=()=>activeUser===listenerUser;
+  cloudUnsubs.push(onSnapshot(collection(db,cloudDrawsName()), snap => {
+    if(!valid())return;
     if (snap.metadata.hasPendingWrites) return;
     let changed = false;
     snap.docChanges().forEach(ch => {
@@ -709,30 +730,34 @@ function listenCloud(){
       }
     });
     if (changed){ saveDraws(); renderAll(); }
-  }, () => cloudPill('off','☁ local'));
-  onSnapshot(doc(db,'meta','animals'), snap => {
+  }, () => {if(valid())cloudPill('off','☁ local');}));
+  cloudUnsubs.push(onSnapshot(doc(db,'meta',cloudMetaName('animals')), snap => {
+    if(!valid())return;
     if (!snap.exists() || snap.metadata.hasPendingWrites) return;
     const m = snap.data().map;
     if (m && m['00'] && JSON.stringify(m) !== JSON.stringify(animals)){ animals = m; saveAnimals(); renderAll(); }
-  });
-  onSnapshot(doc(db,'meta','notes'), snap => {
+  }));
+  cloudUnsubs.push(onSnapshot(doc(db,'meta',cloudMetaName('notes')), snap => {
+    if(!valid())return;
     if (!snap.exists() || snap.metadata.hasPendingWrites) return;
     const remoteNotes = snap.data().map;
     if (remoteNotes && JSON.stringify(remoteNotes) !== JSON.stringify(notes)){ notes = remoteNotes; saveNotes(); renderExplorer(); }
-  });
-  onSnapshot(doc(db,'meta','capital'),snap=>{
+  }));
+  cloudUnsubs.push(onSnapshot(doc(db,'meta',cloudMetaName('capital')),snap=>{
+    if(!valid())return;
     if(!snap.exists()||snap.metadata.hasPendingWrites)return;
     const remoteCapital=snap.data().value;
     if(remoteCapital&&JSON.stringify(remoteCapital)!==JSON.stringify(capital)){capital=remoteCapital;saveCapitalLocal();renderCapital();}
-  });
+  }));
 }
+function stopCloudListeners(){cloudUnsubs.forEach(fn=>{try{fn()}catch(e){}});cloudUnsubs=[]}
 
-async function cloudSet(date, number){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,'draws',date), { number, updatedAt: Date.now() }); }catch(e){} }
-async function cloudDel(date){ try{ if (cloud) await cloud.deleteDoc(cloud.doc(cloud.db,'draws',date)); }catch(e){} }
+async function cloudSet(date, number){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,cloudDrawsName(),date), { number, updatedAt: Date.now() }); }catch(e){} }
+async function cloudDel(date){ try{ if (cloud) await cloud.deleteDoc(cloud.doc(cloud.db,cloudDrawsName(),date)); }catch(e){} }
 async function cloudSetMany(rows){ try{ if (cloud) await pushMany(rows); }catch(e){} }
-async function cloudSetAnimals(){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,'meta','animals'), { map: animals, updatedAt: Date.now() }); }catch(e){} }
-async function cloudSetNotes(){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,'meta','notes'), { map: notes, updatedAt: Date.now() }); }catch(e){} }
-async function cloudSetCapital(){try{if(cloud)await cloud.setDoc(cloud.doc(cloud.db,'meta','capital'),{value:capital,updatedAt:Date.now()})}catch(e){}}
+async function cloudSetAnimals(){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,'meta',cloudMetaName('animals')), { map: animals, updatedAt: Date.now() }); }catch(e){} }
+async function cloudSetNotes(){ try{ if (cloud) await cloud.setDoc(cloud.doc(cloud.db,'meta',cloudMetaName('notes')), { map: notes, updatedAt: Date.now() }); }catch(e){} }
+async function cloudSetCapital(){try{if(cloud)await cloud.setDoc(cloud.doc(cloud.db,'meta',cloudMetaName('capital')),{value:capital,updatedAt:Date.now()})}catch(e){}}
 
 $('cloudStat').onclick = () => initCloud();
 window.addEventListener('online', () => initCloud());
