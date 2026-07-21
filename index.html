@@ -47,6 +47,8 @@ main{display:flex;flex-direction:column;gap:16px;padding:16px 14px 40px;max-widt
 
 /* result of the day */
 .resultday{position:relative;overflow:hidden;min-height:205px;padding:21px 20px;border:0;background:linear-gradient(135deg,#ffb62e 0%,#ff7a32 45%,#f34c45 100%);box-shadow:0 12px 28px rgba(255,104,45,.23)}
+body.user2 .resultday{background:var(--grad);box-shadow:0 12px 28px rgba(34,157,255,.23)}
+body.user2 .resultdaynum{text-shadow:0 4px 16px rgba(0,35,90,.28)}body.user2 .resultdayemoji{filter:drop-shadow(0 7px 10px rgba(0,35,90,.28))}
 .resultday:before,.resultday:after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}.resultday:before{width:180px;height:180px;right:-65px;top:-75px}.resultday:after{width:110px;height:110px;right:85px;bottom:-80px}
 .resultdayhead{position:relative;z-index:1;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.84)}
 .resultdaymain{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}.resultdaynum{font-size:clamp(2.65rem,13vw,4.35rem);line-height:.95;font-weight:900;letter-spacing:3px;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 4px 16px rgba(111,38,0,.22)}.resultdayemoji{font-size:clamp(3.3rem,15vw,5.2rem);line-height:1;filter:drop-shadow(0 7px 10px rgba(100,30,0,.22))}
